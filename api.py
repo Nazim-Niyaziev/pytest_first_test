@@ -1,6 +1,8 @@
 import json
 import requests
+
 from requests_toolbelt.multipart.encoder import MultipartEncoder
+from settings import api_key
 
 '''Мой класс'''
 
@@ -14,8 +16,8 @@ class MoyClass:
     def get_token(self, auth_key) -> json:
         """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате
         JSON с уникальным токеном пользователя"""
-        json = {'apiKey': auth_key, }
-        res = requests.post(self.base_url + 'v1/company/auth/getToken', json=json)
+        api_key_in = {'apiKey': auth_key}
+        res = requests.post(self.base_url + 'v1/company/auth/getToken', json=api_key_in)
         status = res.status_code
         result = ""
         try:
@@ -24,27 +26,10 @@ class MoyClass:
             result = res.text
         return status, result
 
-        # pt = MoyClass()
-        # print(pt.get_token(token))
-
-        '''Pet Friends '''
-
-
-class PetFriends:
-    """апи библиотека к веб приложению Pet Friends"""
-
-    def __init__(self):
-        self.base_url = "https://petfriends.skillfactory.ru/"
-
-    def get_api_key(self, email: str, passwd: str) -> json:
+    def refresh_token(self, authorize) -> json:
         """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате
-        JSON с уникальным ключем пользователя, найденного по указанным email и паролем"""
-
-        headers = {
-            'email': email,
-            'password': passwd,
-        }
-        res = requests.get(self.base_url + 'api/key', headers=headers)
+        JSON с обновленным токеном пользователя"""
+        res = requests.post(self.base_url + 'v1/company/auth/refreshToken', headers=authorize)
         status = res.status_code
         result = ""
         try:
@@ -53,16 +38,15 @@ class PetFriends:
             result = res.text
         return status, result
 
-    def get_list_of_pets(self, auth_key: json, filter: str = "") -> json:
-        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON
-        со списком наденных питомцев, совпадающих с фильтром. На данный момент фильтр может иметь
-        либо пустое значение - получить список всех питомцев, либо 'my_pets' - получить список
-        собственных питомцев"""
+    def delete_token(self, authorize):
+        """Метод делает запрос к API сервера и возвращает статус запроса"""
+        res = requests.post(self.base_url + 'v1/company/auth/revokeToken', headers=authorize)
+        status = res.status_code
+        return status
 
-        headers = {'auth_key': auth_key['key']}
-        filter = {'filter': filter}
-
-        res = requests.get(self.base_url + 'api/pets', headers=headers, params=filter)
+    def filials(self, authorize) -> json:
+        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON со списком филиалов"""
+        res = requests.get(self.base_url + 'v1/company/filials', headers=authorize)
         status = res.status_code
         result = ""
         try:
@@ -71,38 +55,9 @@ class PetFriends:
             result = res.text
         return status, result
 
-    def add_new_pet(self, auth_key: json, name: str, animal_type: str,
-                    age: str, pet_photo: str) -> json:
-        """Метод отправляет (постит) на сервер данные о добавляемом питомце и возвращает статус
-        запроса на сервер и результат в формате JSON с данными добавленного питомца"""
-
-        data = MultipartEncoder(
-            fields={
-                'name': name,
-                'animal_type': animal_type,
-                'age': age,
-                'pet_photo': (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')
-            })
-        headers = {'auth_key': auth_key['key'], 'Content-Type': data.content_type}
-
-        res = requests.post(self.base_url + 'api/pets', headers=headers, data=data)
-        status = res.status_code
-        result = ""
-        try:
-            result = res.json()
-        except json.decoder.JSONDecodeError:
-            result = res.text
-        print(result)
-        return status, result
-
-    def delete_pet(self, auth_key: json, pet_id: str) -> json:
-        """Метод отправляет на сервер запрос на удаление питомца по указанному ID и возвращает
-        статус запроса и результат в формате JSON с текстом уведомления о успешном удалении.
-        На сегодняшний день тут есть баг - в result приходит пустая строка, но status при этом = 200"""
-
-        headers = {'auth_key': auth_key['key']}
-
-        res = requests.delete(self.base_url + 'api/pets/' + pet_id, headers=headers)
+    def rooms(self, authorize) -> json:
+        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON со списком аудиторий"""
+        res = requests.get(self.base_url + 'v1/company/rooms', headers=authorize)
         status = res.status_code
         result = ""
         try:
@@ -111,19 +66,74 @@ class PetFriends:
             result = res.text
         return status, result
 
-    def update_pet_info(self, auth_key: json, pet_id: str, name: str,
-                        animal_type: str, age: int) -> json:
-        """Метод отправляет запрос на сервер о обновлении данных питомуа по указанному ID и
-        возвращает статус запроса и result в формате JSON с обновлённыи данными питомца"""
+    def managers(self, authorize) -> json:
+        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON со списком сотрудников"""
+        res = requests.get(self.base_url + 'v1/company/managers', headers=authorize)
+        status = res.status_code
+        result = ""
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
 
-        headers = {'auth_key': auth_key['key']}
+    def roles(self, authorize) -> json:
+        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON со
+        списком ролей сотрудников"""
+        res = requests.get(self.base_url + 'v1/company/roles', headers=authorize)
+        status = res.status_code
+        result = ""
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
+
+    def rates(self, authorize) -> json:
+        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON со списком аудиторий"""
+        res = requests.get(self.base_url + 'v1/company/rates', headers=authorize)
+        status = res.status_code
+        result = ""
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
+
+    def add_manager(self, authorize, name: str, phone: str, email: str, filials: int, salaryFilialId: int,
+                    roles: int, enabled: bool, password: str, additionalContacts: str, isStaff: bool,
+                    isWork: bool, sendNotifies: bool, startDate: str, endDate: str,
+                    contractNumber: str, contractDate: str, birthDate: str,
+                    passportData: str, comment: str, color: str, rateId: int,
+                    isOwner: bool) -> json:
+        """Метод отправляет (постит) на сервер данные о добавляемом сотруднике и возвращает статус
+        запроса на сервер и результат в формате JSON с данными добавленного сотрудника"""
+
         data = {
             'name': name,
-            'age': age,
-            'animal_type': animal_type
+            'phone': phone,
+            'email': email,
+            'filials': filials,
+            'salaryFilialId': salaryFilialId,
+            'roles': roles,
+            'enabled': enabled,
+            'password': password,
+            'additionalContacts': additionalContacts,
+            'isStaff': isStaff,
+            'isWork': isWork,
+            'sendNotifies': sendNotifies,
+            'startDate': startDate,
+            'endDate': endDate,
+            'contractNumber': contractNumber,
+            'contractDate': contractDate,
+            'birthDate': birthDate,
+            'passportData': passportData,
+            'comment': comment,
+            'color': color,
+            'rateId': rateId,
+            'isOwner': isOwner
         }
-
-        res = requests.put(self.base_url + 'api/pets/' + pet_id, headers=headers, data=data)
+        res = requests.post(self.base_url + 'v1/company/managers', headers=authorize, json=data)
         status = res.status_code
         result = ""
         try:
@@ -131,3 +141,35 @@ class PetFriends:
         except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
+
+    def courses(self, authorize, includeClasses: bool) -> json:
+        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON со списком аудиторий"""
+        data = {'/includeClasses' : includeClasses}
+        res = requests.get(self.base_url + 'v1/company/courses', headers=authorize, params=data)
+        status = res.status_code
+        result = ""
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
+
+    def classes(self, authorize) -> json:
+        """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON со списком аудиторий"""
+        res = requests.get(self.base_url + 'v1/company/classes', headers=authorize)
+        status = res.status_code
+        result = ""
+        try:
+            result = res.json()
+        except json.decoder.JSONDecodeError:
+            result = res.text
+        return status, result
+
+
+mc = MoyClass()
+a = mc.get_token(api_key)
+b = a[1]
+auth = {'x-access-token': b['accessToken']}
+
+print(mc.courses(auth, True))
+
