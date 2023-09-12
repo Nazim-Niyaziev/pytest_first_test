@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ca01077-6b78-4201-9341-ef1253991c51" name="Changes" comment="yep!">
-      <change afterPath="$PROJECT_DIR$/decorators.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mytests/test_selenium_simple.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mytests/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mytests/test_outsoursing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mytests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/mytests/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mytests/test_moy_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/mytests/test_moy_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mytests/test_selenium_petfriends.py" beforeDir="false" afterPath="$PROJECT_DIR$/mytests/test_selenium_petfriends.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mytests/test_selenium_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/mytests/test_selenium_simple.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mytests/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/mytests/tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +56,7 @@
       <recent name="$PROJECT_DIR$/tests" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_selenium_simple.test_search_example">
+  <component name="RunManager" selected="Python tests.Python tests in test_outsoursing.py">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="pytest_first_test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -75,20 +78,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for mytests.rora.test_python_string_slicer_generated" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="pytest_first_test" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mytests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;mytests.rora.test_python_string_slicer_generated&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for test_selenium_simple.test_search_example" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="pytest_first_test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,20 +89,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;test_selenium_simple.test_search_example&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for tests_api_pets.test_add_new_pet_simple" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="pytest_first_test" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mytests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests_api_pets.test_add_new_pet_simple&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -159,13 +134,27 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests in test_outsoursing.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="pytest_first_test" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mytests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/mytests/test_outsoursing.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests in test_outsoursing.py" />
         <item itemvalue="Python tests.Python tests for test_selenium_simple.test_search_example" />
         <item itemvalue="Python tests.Python tests for tests_api_pets.test_get_api_key_for_valid_user" />
         <item itemvalue="Python tests.Python tests for tests_api_pets.test_get_all_pets_with_valid_key" />
         <item itemvalue="Python tests.Python tests for tests_api_pets.test_get_all_pets_with_negative_filter" />
-        <item itemvalue="Python tests.Python tests for tests_api_pets.test_add_new_pet_simple" />
       </list>
     </recent_temporary>
   </component>
